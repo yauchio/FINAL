@@ -4,7 +4,7 @@ var app       =     express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/',function(req,res){
-  res.sendfile("note.html");
+  res.sendfile("index.html");
 });
 
 app.listen(3000,function(){
