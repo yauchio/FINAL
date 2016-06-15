@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+input , textarea { width:80%; margin:10; padding:10; }
+a { color:white; text-decoration:underline;font-style: italic;font-size: 20px }
+</style>                            
+</head>
+<body style="background-image:url(http://i.imgur.com/50Yti8f.jpg);">
+
+<div>
+<div><input id="title" type="text" value="Title"/></div>
+<br/>
+<div><textarea id="text" style="height:200px">Text</textarea></div>
+<p style="color:white;">撃っていいのは撃たれる覚悟のある奴だけだ-------ルルーシュ・ヴィ・ブリタニア</p>
+<button onclick="save()">SAVE IT</button>
+<div>
+<table id="list">
+</table>
+</div>
+<script>
+var oTitle = document.getElementById("title");
+var oText  = document.getElementById("text");
+var oList = document.getElementById("list");
+
+function save() {
+  var title = oTitle.value;
+  var text  = oText.value;
+  window.localStorage.setItem("notepad:"+title, text);
+  showList();
+}
+
+function showList() {
+  var rowHtml = "";
+  for (var title in window.localStorage) {
+    if (title.startsWith("notepad:")) {
+      rowHtml += "<tr><td><a onclick=\"loadDoc('"+title+"')\">"+title.substring(8)+"</a></td></tr>"
+    }
+  }
+  oList.innerHTML = rowHtml;
+}
+
+function loadDoc(title) {
+  oTitle.value = title.substring(8);
+  oText.value  = window.localStorage.getItem(title);
+}
+
+
+</script>
+</div>
+</body>
+</html>
